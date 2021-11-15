@@ -74,6 +74,8 @@ def buildHelpMsg():
   help_msg += "type '!aoe remove [player]' to remove a player from the roster\n"
   help_msg += "type '!aoe all' to view all current player in the roster\n"
   help_msg += "type '!aoe reset' to clear all current player in the roster\n"
+  help_msg += "type '!aoe save' to save all current player in the roster\n"
+  help_msg += "type '!aoe load' to load all player from the last session in the roster\n"
   return help_msg
 
 #-----player management-----
@@ -139,6 +141,7 @@ def loadPlayers():
     with open("players.json", "r") as jFile:
       names = jFile.read()
       #assign the players varible with the new list
+      global players
       players = json.loads(names)
       jFile.close()
 
