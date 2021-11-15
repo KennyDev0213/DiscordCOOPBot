@@ -1,3 +1,5 @@
+#bot interface
+
 import discord
 import os
 
@@ -64,6 +66,14 @@ async def on_message(msg):
   #reset the roster
   elif cmd_msg[1] == "reset":
     await msg.channel.send(cmd.resetPlayers())
+
+  #save the roster
+  elif cmd_msg[1] == "save":
+    await msg.channel.send(cmd.savePlayers())
+
+  #load the roster
+  elif cmd_msg[1] == "load":
+    await msg.channel.send(cmd.loadPlayers())
 
   #if the command was not recognized then send help msg
   else:

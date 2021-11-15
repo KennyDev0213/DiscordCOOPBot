@@ -1,4 +1,7 @@
+#command controller
+
 import random
+import json
 
 #-----init-----
 players = []
@@ -97,6 +100,7 @@ def removePlayer(player_name=""):
 
 #show all the players in current roster
 def showPlayers():
+
   #if player list is empty return the empty status
   if len(players) == 0:
     return "roster is empty"
@@ -108,3 +112,38 @@ def showPlayers():
       all_players += str(count) +". " + str(player) + "\n"
       count += 1
     return all_players
+
+#save the players from queue into a json file
+def savePlayers():
+  #if player count in roster is 0, notify the player the players cannot be saved
+  if len(players) == 0:
+    return "No players in the roster to save"
+  else:
+    #convert the players list into a json string
+    player_json = json.dumps(players)
+
+    #open the json file, write the string then close
+    with open("players.json", "w") as jFile:
+      jFile.write(player_json)
+      jFile.close()
+
+    #notify the bot that is was successful
+    return "SUCESS! all players have been saved"
+
+def loadPlayers():
+
+  #adding a try/catch incase the file doesn't exist yet and throws a FileNotFoundError
+  try:
+
+    #open the file, get its contents then parse the json string into a list then close the file
+    with open("players.json", "r") as jFile:
+      names = jFile.read()
+      #assign the players varible with the new list
+      players = json.loads(names)
+      jFile.close()
+
+    #notify that is has been loaded
+    return "Roster has been loaded! Ready to game!"
+
+  except FileNotFoundError:
+    return "File was not found, did you save the last roster?"
